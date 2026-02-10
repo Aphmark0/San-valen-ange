@@ -186,40 +186,40 @@ button:hover {
 
     <div class="mensaje-final" id="mensajeFinal">
         Entonces hagamos florecer nuestra historia para siempre 🌸
-    </div>
+     </div>
+
+    <button onclick="aceptar()">Sí, quiero</button>
+</div>
+
+<div class="final" id="pantallaFinal">
+    <img src="amor.png" alt="Amor">
+    <h2 style="color:#ff5f6d;">Nuestro amor floreció 💗</h2>
 </div>
 
 <script>
-let intensidadPetalos = 400;
-
-function crearPetalo() {
-    const petalo = document.createElement("div");
-    petalo.classList.add("petalo");
-
-    petalo.style.left = Math.random() * window.innerWidth + "px";
-    petalo.style.animationDuration = (5 + Math.random() * 4) + "s";
-
-    document.body.appendChild(petalo);
+function crearCorazon() {
+    const corazon = document.createElement("div");
+    corazon.classList.add("corazon");
+    corazon.innerHTML = "❤️";
+    corazon.style.left = Math.random() * window.innerWidth + "px";
+    corazon.style.animationDuration = (4 + Math.random() * 3) + "s";
+    document.body.appendChild(corazon);
 
     setTimeout(() => {
-        petalo.remove();
-    }, 9000);
+        corazon.remove();
+    }, 7000);
 }
-
-setInterval(() => {
-    crearPetalo();
-}, intensidadPetalos);
 
 function aceptar() {
     document.body.classList.add("romantico");
     document.getElementById("arbol").classList.add("florecer");
-    document.getElementById("mensajeFinal").classList.add("mostrar");
-    intensidadPetalos = 150; // Más pétalos al aceptar
+
+    setTimeout(() => {
+        document.getElementById("pantallaFinal").classList.add("mostrarFinal");
+        setInterval(crearCorazon, 200);
+    }, 2000);
 }
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
