@@ -47,7 +47,7 @@ h1 {
 
 .arbol.florecer {
     transform: scale(1.08);
-    filter: drop-shadow(0 0 25px rgba(255,255,255,0.6));
+    filter: drop-shadow(0 0 30px rgba(255,255,255,0.6));
 }
 
 .arbol.florecer img {
@@ -80,22 +80,14 @@ button:hover {
     color: #ff5f6d;
 }
 
-.mensaje-final {
-    margin-top: 30px;
-    opacity: 0;
-    transition: opacity 2s ease;
-    font-size: 1.2em;
-}
-
-.mostrar {
-    opacity: 1;
-}
-
-/* Imagen final */
+/* Pantalla final */
 .final {
     position: fixed;
-    inset: 0;
-    background: rgba(255,255,255,0.95);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.98);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,11 +95,17 @@ button:hover {
     opacity: 0;
     pointer-events: none;
     transition: opacity 2s ease;
+    z-index: 99999;
 }
 
 .final img {
-    width: 300px;
+    width: 320px;
     animation: aparecer 2s ease forwards;
+}
+
+.final h2 {
+    color: #ff5f6d;
+    font-weight: 400;
 }
 
 .final.mostrarFinal {
@@ -124,7 +122,7 @@ button:hover {
 .corazon {
     position: fixed;
     top: -20px;
-    font-size: 20px;
+    font-size: 22px;
     animation: caerCorazon linear forwards;
 }
 
@@ -160,12 +158,18 @@ button:hover {
     <button onclick="aceptar()">Sí, quiero</button>
 </div>
 
+<!-- Pantalla Final -->
 <div class="final" id="pantallaFinal">
     <img src="amor.png" alt="Amor">
-    <h2 style="color:#ff5f6d;">Nuestro amor floreció 💗</h2>
+    <h2>Nuestro amor floreció 💗</h2>
 </div>
 
+<!-- Música -->
+<audio id="musica" src="dandan.mp3"></audio>
+
 <script>
+let intervaloCorazones;
+
 function crearCorazon() {
     const corazon = document.createElement("div");
     corazon.classList.add("corazon");
@@ -183,15 +187,19 @@ function aceptar() {
     document.body.classList.add("romantico");
     document.getElementById("arbol").classList.add("florecer");
 
+    // Reproducir música (solo se permite tras interacción del usuario)
+    const musica = document.getElementById("musica");
+    musica.volume = 0.6;
+    musica.play();
+
     setTimeout(() => {
-        document.getElementById("pantallaFinal").classList.add("mostrarFinal");
-        setInterval(crearCorazon, 200);
+        document.getElementById("pantallaFinal")
+                .classList.add("mostrarFinal");
+
+        intervaloCorazones = setInterval(crearCorazon, 250);
     }, 2000);
 }
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
