@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>San Valentín 💖</title>
+
+<style>
+body{
+    margin:0;
+    font-family: 'Georgia', serif;
+    text-align:center;
+    overflow:hidden;
+    background: linear-gradient(to top, #ff9a9e, #fad0c4, #fbc2eb);
+    height:100vh;
+    color:white;
+}
+
+/* Pantalla inicio */
+#inicio{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:#f06292;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:2em;
+    cursor:pointer;
+    z-index:1000;
+    transition:opacity 0.8s ease;
+}
+
+/* Árbol */
+.arbol{
+    position:relative;
+    width:200px;
+    height:300px;
+    margin:40px auto;
+}
+
+.tronco{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:40px;
+    height:120px;
+    background:#5d4037;
+    border-radius:10px;
+}
+
+.copa{
+    position:absolute;
+    bottom:100px;
+    left:50%;
+    transform:translateX(-50%);
+    width:220px;
+    height:180px;
+    background:radial-gradient(circle at 30% 30%, #ff8fb1, #ff4d88);
+    border-radius:50% 50% 45% 45%;
+    transition:all 2s ease;
+}
+
+.florecer .copa{
+    background:radial-gradient(circle at 30% 30%, #ffc1d9, #ff1493);
+    box-shadow:0 0 40px rgba(255,255,255,0.7);
+    transform:translateX(-50%) scale(1.2);
+}
+
+/* Texto */
+.mensaje{
+    max-width:600px;
+    margin:auto;
+    line-height:1.6em;
+    font-size:1.1em;
+}
+
+/* Botón */
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:#ff4081;
+    color:white;
+    font-size:1em;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#f50057;
+}
+
+/* Pétalos */
+.petalo{
+    position:fixed;
+    width:12px;
+    height:12px;
+    background:pink;
+    border-radius:50%;
+    opacity:0.7;
+    top:-10px;
+    animation:caer linear infinite;
+}
+
+@keyframes caer{
+    to{
+        transform:translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Imagen final */
+#final{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(255,182,193,0.95);
+    top:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    opacity:0;
+    pointer-events:none;
+    transition:1s;
+}
+
+#final img{
+    width:280px;
+}
+
+#final.mostrar{
+    opacity:1;
+    pointer-events:auto;
+}
+</style>
+</head>
+
+<body>
+
+<div id="inicio">💖 Toca para entrar 💖</div>
+
+<audio id="musica" loop>
+    <source src="dandan.mp3" type="audio/mpeg">
+</audio>
+
+<h1>¿Quieres ser mi San Valentín?</h1>
+
+<div class="arbol" id="arbol">
+    <div class="tronco"></div>
+    <div class="copa"></div>
+</div>
+
+<div class="mensaje">
+Desde que estás en mi vida, todo florece diferente.<br>
+Como este árbol que crece con forma imperfecta y hermosa,<br>
+así quiero que crezca lo nuestro.<br>
+Quiero que me elijas todos los días de tu vida.<br>
+Quiero que tu felicidad tenga mi nombre.<br>
+Quiero sentir tu pasión por mí.<br>
+Quiero que nuestro amor tenga raíces fuertes como este árbol.
+</div>
+
+<button onclick="aceptar()">Sí quiero 💕</button>
+
+<div id="final">
+    <h2>Ahora florece nuestro amor 💖</h2>
+    <img src="amor.png">
+</div>
+
+<script>
+const musica = document.getElementById("musica");
+const inicio = document.getElementById("inicio");
+
+/* Pantalla inicial */
+inicio.addEventListener("click", () => {
+
+    musica.volume = 0.6;
+
+    musica.play().catch(error=>{
+        console.log("Autoplay bloqueado:", error);
+    });
+
+    inicio.style.opacity = "0";
+    setTimeout(()=>inicio.remove(),800);
+});
+
+/* Pétalos */
+function crearPetalo(){
+    const p = document.createElement("div");
+    p.classList.add("petalo");
+    p.style.left = Math.random()*window.innerWidth+"px";
+    p.style.animationDuration = (4+Math.random()*4)+"s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),8000);
+}
+setInterval(crearPetalo,300);
+
+/* Botón aceptar */
+function aceptar(){
+    document.getElementById("arbol").classList.add("florecer");
+
+    setTimeout(()=>{
+        document.getElementById("final").classList.add("mostrar");
+    },2000);
+
+    console.log("Dijo que sí 💖");
+}
+</script>
+
+</body>
+</html>
